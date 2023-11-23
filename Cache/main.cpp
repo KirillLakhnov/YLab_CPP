@@ -1,16 +1,16 @@
-//#define LRU
-//#define LFU
+//#define LRU_CACHE
+//#define LFU_CACHE
 //#define TESTS
 
 #include <iostream>
 #include <cassert>
 #include <vector>
 
-#ifdef LRU
+#ifdef LRU_CACHE
     #include "include/LRU_cache.hpp"
 #endif
 
-#ifdef LFU
+#ifdef LFU_CACHE
     #include "include/LFU_cache.hpp"
 #endif
 
@@ -36,12 +36,12 @@ int main ()
     std::cin >> size_cache >> number_elem;
     assert(std::cin.good());
 
-#ifdef LRU
-    LRU_cache_t<int> cache(size_cache);
+#ifdef LRU_CACHE
+    Cache::LRU<int> cache(size_cache);
 #endif
 
-#ifdef LFU
-    LFU_cache_t<int> cache(size_cache);
+#ifdef LFU_CACHE
+    Cache::LFU<int> cache(size_cache);
 #endif
     
     for (int i = 0; i < number_elem; i++)

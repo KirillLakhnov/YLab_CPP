@@ -5,11 +5,11 @@
 #include <fstream>
 #include <cassert>
 
-#ifdef LRU
+#ifdef LRU_CACHE
     #include "LRU_cache.hpp"
 #endif
 
-#ifdef LFU
+#ifdef LFU_CACHE
     #include "LFU_cache.hpp"
 #endif
 
@@ -30,12 +30,12 @@ template <typename Func> void tests(Func slow_get_page)
     {
         test_data >> number_elem;
 
-#ifdef LRU
-        LRU_cache_t<int> cache(size_cache);
+#ifdef LRU_CACHE
+        Cache::LRU<int> cache(size_cache);
 #endif
 
-#ifdef LFU
-        LFU_cache_t<int> cache(size_cache);
+#ifdef LFU_CACHE
+        Cache::LFU<int> cache(size_cache);
 #endif
 
         for (int i = 0; i < number_elem; i++)

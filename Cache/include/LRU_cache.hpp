@@ -7,7 +7,9 @@
 #include <list>
 #include <unordered_map>
 
-template <typename T, typename KeyT = int> struct LRU_cache_t
+namespace Cache {
+template <typename T, typename KeyT = int> 
+struct LRU
 {
     size_t sz_;
 
@@ -16,10 +18,11 @@ template <typename T, typename KeyT = int> struct LRU_cache_t
     using ListIt = typename std::list<std::pair<KeyT, T>>::iterator;
     std::unordered_map<KeyT, ListIt> hash_;
 
-    LRU_cache_t (size_t size_cache) : sz_(size_cache) {}
+    LRU (size_t size_cache) : sz_(size_cache) {}
 
     bool full() const {return (sz_ == hash_.size());}
 
+#ifdef DEBUG
     void dump()
     {
         std::cout << "\e[31mcache_list: \e[0m";
@@ -33,6 +36,7 @@ template <typename T, typename KeyT = int> struct LRU_cache_t
         }
         std::cout << std::endl;
     }
+#endif
 
     template <typename Func> bool lookup_update (KeyT key, Func slow_get_page)
     {
@@ -68,5 +72,6 @@ template <typename T, typename KeyT = int> struct LRU_cache_t
         return true;
     }
 };
+}
 
 #endif //LRU_CACHE_HPP

@@ -7,11 +7,13 @@
 #include <list>
 #include <unordered_map>
 
-template <typename T, typename KeyT = int> struct LFU_cache_t
+namespace Cache {
+template <typename T, typename KeyT = int> 
+struct LFU
 {
     size_t sz_;
 
-    LFU_cache_t (size_t size_cache) : sz_(size_cache) {}
+    LFU (size_t size_cache) : sz_(size_cache) {}
 
     std::list<std::pair<KeyT, std::pair<T, size_t>>> cache_;
 
@@ -20,12 +22,14 @@ template <typename T, typename KeyT = int> struct LFU_cache_t
 
     bool full() const {return (sz_ == hash_.size());}
 
+#ifdef DEBUG
     void dump()
     {
         std::cout << "\e[31mcache_list: \e[0m";
 
         auto cache_elem = cache_.begin();
         auto cache_size = cache_.size();
+        
         for (int i = 0; i < cache_size; i++)
         {
             std::cout << cache_elem->first << " ";
@@ -33,6 +37,7 @@ template <typename T, typename KeyT = int> struct LFU_cache_t
         }
         std::cout << std::endl;
     }
+#endif
 
     template <typename Func> bool lookup_update (KeyT key, Func slow_get_page)
     {
@@ -78,5 +83,6 @@ template <typename T, typename KeyT = int> struct LFU_cache_t
         return true;
     }
 };
+}
 
 #endif //LFU_CACHE_HPP
