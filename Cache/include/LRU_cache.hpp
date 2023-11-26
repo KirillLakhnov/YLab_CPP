@@ -72,6 +72,6 @@ struct LRU
         return true;
     }
 };
-}
+} //namespace Cache
 
 #endif //LRU_CACHE_HPP

@@ -15,7 +15,7 @@
 
 template <typename Func> void tests(Func slow_get_page)
 {
-    std::ifstream test_data("test_data.txt");
+    std::ifstream test_data("files/test_data.txt");
     assert(test_data.good());
 
     int hits = 0;

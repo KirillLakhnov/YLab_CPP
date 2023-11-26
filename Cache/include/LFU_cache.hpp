@@ -83,6 +83,6 @@ struct LFU
         return true;
     }
 };
-}
+} //namespace Cache
 
 #endif //LFU_CACHE_HPP
